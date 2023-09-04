@@ -1,0 +1,54 @@
+/* style.css */
+
+/* Gaya untuk kontainer chat */
+.chat-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Gaya untuk daftar pesan */
+.message-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Gaya untuk pesan yang diterima */
+.message.received {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Gaya untuk pesan yang dikirim */
+.message.sent {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Gaya untuk form chat */
+.chat-form {
+    margin-top: 10px;
+    display: flex;
+}
+
+.chat-form input {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.chat-form button {
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
