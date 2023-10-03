@@ -34,23 +34,41 @@ tfidf_vectorizer = TfidfVectorizer()
 tfidf_matrix = tfidf_vectorizer.fit_transform(data['processed_question'])
 
 # Fungsi untuk mendapatkan jawaban terbaik berdasarkan cosine similarity
+# def get_best_answer(user_input):
+#     user_input = preprocess_text(user_input)
+#     user_tfidf = tfidf_vectorizer.transform([user_input])
+    
+#     similarities = cosine_similarity(user_tfidf, tfidf_matrix)[0]
+#     best_index = similarities.argmax()
+#     best_answer = data['answer'][best_index]
+    
+#     return best_answer
+
 def get_best_answer(user_input):
     user_input = preprocess_text(user_input)
     user_tfidf = tfidf_vectorizer.transform([user_input])
     
     similarities = cosine_similarity(user_tfidf, tfidf_matrix)[0]
     best_index = similarities.argmax()
+    
+    # Set a threshold for similarity score below which the chatbot responds with "Saya tidak tahu"
+    threshold = 0.2  # You can adjust this threshold as needed
+    
+    if similarities[best_index] < threshold:
+        return "Saya tidak tahu"
+    
     best_answer = data['answer'][best_index]
     
     return best_answer
 
 # Interaksi dengan user
-print("Chatbot: Halo! Silakan bertanya atau ketik 'exit' untuk mengakhiri.")
-while True:
-    user_input = input("Anda: ")
-    if user_input.lower() == 'exit':
-        print("Chatbot: Sampai jumpa!")
-        break
-    else:
-        response = get_best_answer(user_input)
-        print("Chatbot:", response)
+
+# print("Chatbot: Halo! Silakan bertanya atau ketik 'exit' untuk mengakhiri.")
+# while True:
+#     user_input = input("Anda: ")
+#     if user_input.lower() == 'exit':
+#         print("Chatbot: Sampai jumpa!")
+#         break
+#     else:
+#         response = get_best_answer(user_input)
+#         print("Chatbot:", response)

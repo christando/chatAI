@@ -3,18 +3,95 @@
 
 <head>
     <title>Chatbot</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
 
+        h1 {
+            text-align: center;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+        }
+
+        #chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        #chat-box {
+            background-color: #717171;
+            /* Warna latar belakang chat */
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: auto;
+            /* Untuk menambahkan scroll jika konten terlalu panjang */
+            max-height: 400px;
+            /* Atur ketinggian maksimal jika perlu */
+        }
+
+        #user-input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #send-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #send-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Tampilan chat user */
+        .user-message {
+            background-color: #E0E0E0;
+            color: #007BFF;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        /* Tampilan chat chatbot */
+        .chatbot-message {
+            background-color: #F0F0F0;
+            /* Warna latar belakang jawaban */
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: left;
+            display: inline-block;
+            /* Pusatkan teks jawaban ke kiri */
+        }
+    </style>
 </head>
 
 <body>
     <h1>Chatbot</h1>
-    <div id="chat-container" Class="chat-container">
-        <div id="chat-box" Class="chat-box" >
+    <div id="chat-container">
+        <div id="chat-box">
             <!-- Pesan dari chatbot akan ditampilkan di sini -->
         </div>
-        <input type="text" id="user-input" Class="user-input" placeholder="Tulis pesan...">
+        <input type="text" id="user-input" placeholder="Tulis pesan...">
         <button id="send-button" Class="send-button">Kirim</button>
     </div>
 
@@ -24,8 +101,7 @@
             $('#send-button').click(function () {
                 var user_input = $('#user-input').val();
                 $('#user-input').val('');
-                $('#chat-box').append('<p><strong>You:</strong> ' + user_input + '</p>');
-
+                $('#chat-box').append('<p class="user-message" text-align="right"><strong>You:</strong> ' + user_input + '</p>');
                 $.ajax({
                     type: 'POST',
                     url: '/chat',
@@ -33,7 +109,7 @@
                         user_input: user_input
                     },
                     success: function (data) {
-                        $('#chat-box').append('<p><strong>Chatbot:</strong> ' + data
+                        $('#chat-box').append('<p class="chatbot-message"><strong>Chatbot:</strong> ' + data
                             .response + '</p>');
                     }
                 });
